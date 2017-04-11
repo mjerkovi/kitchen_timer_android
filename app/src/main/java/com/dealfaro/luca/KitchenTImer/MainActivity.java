@@ -46,9 +46,14 @@ public class MainActivity extends AppCompatActivity {
     private CountDownTimer timer = null;
 
     // One second.  We use Mickey Mouse time.
-    private static final int ONE_SECOND_IN_MILLIS = 100;
+    private static final int ONE_SECOND_IN_MILLIS = 1000;
 
-    // Stores the info of the recent buttons
+    /*
+     * Stores the info of the recent buttons.
+     * RecentTimes[0] -> Leftmost button
+     * RecentTimes[1] -> Center button
+     * RecentTimes[2] -> Rightmost button
+     */
     private RecentTimes[] recent_arr = new RecentTimes[3];
 
     // Flag that indicates whether to update time or not
@@ -93,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
             cancelTimer();
         }
         if (timer == null) {
+            // If the recent buttons need to be updated(i.e. after a + or - has been pressed)
+            // then update the recent buttons and set to_update to false
             if(to_update) {
                 updateRecentButtons();
                 to_update = false;
@@ -123,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
         displayTime();
     }
 
+    /*
+     * If the leftmost button is pressed. Check to see if the number of seconds stored in it's
+     * corresponding recent_arr is 0. If it's 0 do nothing. Otherwise update the timer to the
+     * number of seconds stored in it's corresponding recent_arr entry and start the timer.
+     */
     public void onClickRecent1(View v) {
         to_update = true;
         if(recent_arr[0].getNum_seconds() == 0){
@@ -207,9 +219,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayRecentButtons() {
+        // find all three of the recent buttons in the view
         Button recent1 = (Button) findViewById(R.id.recent1);
         Button recent2 = (Button) findViewById(R.id.recent2);
         Button recent3 = (Button) findViewById(R.id.recent3);
+
+        /*
+         * Now display all of the buttons. If the corresponding recent_arr entry for the button
+         * has a 0 for the num_seconds field, then don't display anything in the text of the button
+         */
         if(recent_arr[0].getNum_seconds() == 0) {
             recent1.setText("");
         }else{
@@ -234,6 +252,4 @@ public class MainActivity extends AppCompatActivity {
             recent3.setText(String.format("%d:%02d", m, s));
         }
     }
-
-
 }
