@@ -141,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         seconds = recent_arr[0].getNum_seconds();
+        // Update the time_added field for the corresponding recent_arr object because the button
+        // was just used. Hmm perhaps time_last_used would have been a more appropriate name...
+        recent_arr[0].setTime_added(System.currentTimeMillis());
         onClickStart(null);
     }
 
@@ -150,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         seconds = recent_arr[1].getNum_seconds();
+        recent_arr[1].setTime_added(System.currentTimeMillis());
         onClickStart(null);
     }
 
@@ -159,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         seconds = recent_arr[2].getNum_seconds();
+        recent_arr[2].setTime_added(System.currentTimeMillis());
         onClickStart(null);
     }
 
